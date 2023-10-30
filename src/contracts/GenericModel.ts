@@ -5,7 +5,9 @@ export interface IModel{
 
 export abstract class GenericModel{
     protected model: string;
+    protected resources:ApiResources; 
     constructor(model: string){
         this.model = model;
+        this.resources = new ApiResources();
     }
 }
