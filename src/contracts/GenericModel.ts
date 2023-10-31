@@ -1,13 +1,14 @@
+import { ApiResources } from "../services/ApiResources";
+
 export interface IModel{
-    printModel():string;
-    generate():this;
+    
 }
 
 export abstract class GenericModel{
     protected model: string;
     protected resources:ApiResources; 
-    constructor(model: string){
+    constructor(model: string, url_base = "http://localhost:3000"){
         this.model = model;
-        this.resources = new ApiResources();
+        this.resources = new ApiResources(url_base);
     }
 }
