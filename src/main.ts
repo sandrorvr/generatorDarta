@@ -25,3 +25,7 @@ person.setname("sandro").buid();
 console.log(JSON.stringify(person));
 //const gerador = new GeneratorData(new Person("sandro", 10000000000), new ActionBuy("compra"));
 //gerador.run();
+
+//vosed39177@zamaneta.com
+
+
