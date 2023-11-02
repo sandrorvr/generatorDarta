@@ -29,31 +29,33 @@ class Person extends GenericModel{
 
     async createData():Promise<void>{
         this.cpf = this.randomCPF();
+        console.log(this.cpf);
         this.name = await this.randomName();
     }
 }
 
 export class PersonBuider{
-    private cpf:number|null = null;
-    private name:string|null = null;
+    private cpf:number|null;
+    private name:string|null;
     public person:Person;
 
     constructor(){
         this.reset();
     }
-    buid():Person{
+    buid(isRandon = false):Person{
         this.person = new Person(
             this.constructor.name,
             this.cpf,
             this.name
         );
+        if(isRandon) this.person.createData();
         return this.person
     }
     reset(){
         this.person = new Person(
             this.constructor.name,
-            this.cpf,
-            this.name
+            null,
+            null
         );
     }
     setcpf(value:number): this {

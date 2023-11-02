@@ -31,13 +31,18 @@ export class BuyBuider{
     constructor(){
         this.reset();
     }
-    buid():Buy{
-        return this.buy;
+    buid(isRandon = false):Buy{
+        this.buy = new Buy(
+            this.constructor.name,
+            this._date
+        );
+        if(isRandon) this.buy.createData();
+        return this.buy
     }
     reset(): this {
         this.buy = new Buy(
             this.constructor.name,
-            this._date
+            null
         );
         return this;
     }
