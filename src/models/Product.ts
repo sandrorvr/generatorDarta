@@ -29,7 +29,7 @@ class Product extends GenericModel{
 
 }
 
-export class BuyBuider{
+export class ProductBuider{
     private _productName:string|null = null;
     private _sale:number|null = null;
     public product:Product;

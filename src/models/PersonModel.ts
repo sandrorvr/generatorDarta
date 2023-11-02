@@ -29,7 +29,6 @@ class Person extends GenericModel{
 
     async createData():Promise<void>{
         this.cpf = this.randomCPF();
-        console.log(this.cpf);
         this.name = await this.randomName();
     }
 }
