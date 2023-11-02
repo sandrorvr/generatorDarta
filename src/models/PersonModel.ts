@@ -1,16 +1,5 @@
 import { GenericModel, IModel} from "../contracts/GenericModel";
-import { IpersonNames } from "../contracts/IpersonNames";
 
-
-interface IPerson{
-    reset():this;
-    setcpf(value:number):this;
-    setname(value:string):this;
-    setmiddleName(value:string):this;
-    setold(value:number):this;
-    setcountry(value:string):this;
-    setaverageWage(value:number):this;
-}
 
 class Person extends GenericModel{
     private cpf:number|null = null;
@@ -50,7 +39,7 @@ class Person extends GenericModel{
     }
 }
 
-export class PersonBuider implements IPerson{
+export class PersonBuider{
     private cpf:number|null = null;
     private name:string|null = null;
     private middleName:string|null = null;

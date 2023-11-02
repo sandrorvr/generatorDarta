@@ -11,7 +11,3 @@ export class ApiResources{
         return names;
     }
 }
-
-//const api = new ApiResources("http://localhost:3000");
-//const value = api.getNames();
-//value.then((resolve)=>console.log(resolve.filter((obj)=>obj.id%2===0)));
