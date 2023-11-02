@@ -1,70 +1,60 @@
-import { GenericModel, IModel} from "../contracts/GenericModel";
+import { GenericModel, IEntity} from "../contracts/GenericModel";
 
 
 class Person extends GenericModel{
-    private cpf:number|null = null;
-    private name:string|null = null;
-    private middleName:string|null = null;
-    private old:number|null = null;
-    private country:string|null = null;
-    private averageWage:number|null = null;
+    private cpf:number|null;
+    private name:string|null;
     constructor(
         model:string,
         cpf:number|null,
-        name:string|null,
-        middleName:string|null,
-        old:number|null,
-        country:string|null,
-        averageWage:number|null,
+        name:string|null
         )
     {
         super(model);
         this.cpf = cpf;
         this.name = name;
-        this.middleName = middleName;
-        this.old = old;
-        this.country = country;
-        this.averageWage = averageWage;
     }
 
-    randomCPF():number{
+
+    private randomCPF():number{
         const value_max = 99999999999;
         const value_min = 11111111111;
         return Math.floor(Math.random() * (value_max - value_min) + value_min);
     }
-    async randomName():Promise<void>{
+    private async randomName():Promise<string>{
         let listNames = await this.resources.getNames();
         const randomIndex = Math.floor(Math.random()*listNames.length);
-        this.name = listNames[randomIndex].name;
+        return this.name = listNames[randomIndex].name;
+    }
+
+    async createData():Promise<void>{
+        this.cpf = this.randomCPF();
+        this.name = await this.randomName();
     }
 }
 
 export class PersonBuider{
     private cpf:number|null = null;
     private name:string|null = null;
-    private middleName:string|null = null;
-    private old:number|null = null;
-    private country:string|null = null;
-    private averageWage:number|null = null;
     public person:Person;
 
     constructor(){
         this.reset();
     }
     buid():Person{
-        return this.person;
-    }
-    reset(): this {
         this.person = new Person(
             this.constructor.name,
             this.cpf,
-            this.name,
-            this.middleName,
-            this.old,
-            this.country,
-            this.averageWage
+            this.name
         );
-        return this;
+        return this.person
+    }
+    reset(){
+        this.person = new Person(
+            this.constructor.name,
+            this.cpf,
+            this.name
+        );
     }
     setcpf(value:number): this {
         this.cpf = value;
@@ -72,22 +62,6 @@ export class PersonBuider{
     }
     setname(value:string): this {
         this.name = value;
-        return this;
-    }
-    setmiddleName(value:string): this {
-        this.middleName = value;
-        return this;
-    }
-    setold(value:number): this {
-        this.old = value;
-        return this;
-    }
-    setcountry(value:string): this {
-        this.country = value;
-        return this;
-    }
-    setaverageWage(value:number): this {
-        this.averageWage = value;
         return this;
     }
 }
