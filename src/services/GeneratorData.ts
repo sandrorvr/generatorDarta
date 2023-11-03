@@ -11,15 +11,11 @@ export interface IPoolEntity{
 }
 
 export class GeneratorData{
-    private poolEntity: IPoolEntity[] = [];
+    private _poolEntity: IPoolEntity[];
     constructor(){
-
+        this._poolEntity = [];
     }
-    addEntityInPool(entity:IEntity, relationships:IRelation[]):void{
-        const relations:IPoolEntity = {entity, relationships};
-        this.poolEntity.push(relations);
-    }
-    createRelation(entity:IEntity, typeRelation:string):IRelation{
-        return {entity, typeRelation};
+    set poolEntity(value:IPoolEntity[]){
+        this._poolEntity = value;
     }
 }
