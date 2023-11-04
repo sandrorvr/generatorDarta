@@ -1,11 +1,14 @@
 import { GeneratorData, IPoolEntity } from "./services/GeneratorData";
 import { Person } from "./models/PersonModel";
-import { BuyBuider } from "./models/BuyModel";
-import { ProductBuider } from "./models/Product";
+import { Buy } from "./models/BuyModel";
+import { Product } from "./models/Product";
 
 
+const person = new Person();
+const buy = new Buy();
+const product = new Product();
 
-/*
+
 const pool:IPoolEntity[] = [
     {
         entity:person,
@@ -26,7 +29,3 @@ const pool:IPoolEntity[] = [
         ]
     }
 ]
-
-*/
-const p = new Person();
-p.createData().then((resolve)=> console.log(resolve));

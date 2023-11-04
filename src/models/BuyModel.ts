@@ -1,15 +1,10 @@
-import { GenericModel, IEntity} from "../contracts/GenericModel";
+import { GenericModel, TupleData} from "../contracts/GenericModel";
 
 
-class Buy extends GenericModel{
+export class Buy extends GenericModel{
     private date:string|null = null;
-    constructor(
-        model:string,
-        date:string|null
-        )
-    {
-        super(model);
-        this.date = date;
+    constructor(){
+        super("Buy")
     }
     randomDate():string{
         const day = Math.floor(Math.random() * 17 + 10);
@@ -17,39 +12,12 @@ class Buy extends GenericModel{
         const year = Math.floor(Math.random() * 5 + 10);
         return `20${year}-0${moth}-${day}`;
     }
-    createData(): void {
-        this.date = this.randomDate();
-    }
 
-
-}
-
-export class BuyBuider{
-    private _date:string|null = null;
-    public buy:Buy;
-
-    constructor(){
-        this.reset();
+    async createData():Promise<TupleData>{
+        this.addColumnValue("date", this.randomDate());
+        return new Promise<TupleData>((resolve, reject)=>{
+            resolve(this.data);
+            reject("DataNotLoad");
+        })
     }
-    buid(isRandon = false):Buy{
-        this.buy = new Buy(
-            this.constructor.name,
-            this._date
-        );
-        if(isRandon) this.buy.createData();
-        return this.buy
-    }
-    reset(): this {
-        this.buy = new Buy(
-            this.constructor.name,
-            null
-        );
-        return this;
-    }
-
-    setDate(value:string):this{
-        this._date = value;
-        return this
-    }
-    
 }

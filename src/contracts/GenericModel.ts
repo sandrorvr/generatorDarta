@@ -40,13 +40,8 @@ export abstract class GenericModel implements IEntity{
     set relations(value:IEntity){
         this._relations = value;
     }
-    get data():TupleData{
-        return this._data;
+    async generateRandomData(){
+        return this.createData().then(()=> this._data)
     }
-    x():Promise<TupleData>{
-        return new Promise<TupleData>((resolve, reject)=>{
-            resolve(this._data)
-        });
-    }
-    
+    protected abstract createData():Promise<void>;
 }

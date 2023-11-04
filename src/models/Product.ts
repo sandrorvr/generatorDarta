@@ -1,18 +1,11 @@
-import { GenericModel, IEntity} from "../contracts/GenericModel";
+import { GenericModel, TupleData} from "../contracts/GenericModel";
 
 
-class Product extends GenericModel{
+export class Product extends GenericModel{
     private productName:string|null = null;
     private sale:number|null = null;
-    constructor(
-        model:string,
-        productName:string|null,
-        sale:number|null
-        )
-    {
-        super(model);
-        this.productName = productName;
-        this.sale = sale;
+    constructor(){
+        super("Product");
     }
     randomProduct():string{
         const listProducts = ["banana", "peixe", "home", "work table"];
@@ -21,47 +14,12 @@ class Product extends GenericModel{
     randomSale():number{
         return Math.floor(Math.random()*100 + 10)
     }
-    createData(): void {
-        this.productName = this.randomProduct();
-        this.sale = this.randomSale();
+    async createData():Promise<TupleData>{
+        this.addColumnValue("procuct", this.randomProduct());
+        this.addColumnValue("sale", this.randomSale());
+        return new Promise<TupleData>((resolve, reject)=>{
+            resolve(this.data);
+            reject("DataNotLoad");
+        })
     }
-
-
-}
-
-export class ProductBuider{
-    private _productName:string|null = null;
-    private _sale:number|null = null;
-    public product:Product;
-
-    constructor(){
-        this.reset();
-    }
-    buid(isRandon = false):Product{
-        this.product = new Product(
-            this.constructor.name,
-            this._productName,
-            this._sale
-        );
-        if(isRandon) this.product.createData();
-        return this.product
-    }
-    reset(): this {
-        this.product = new Product(
-            this.constructor.name,
-            null,
-            null
-        );
-        return this;
-    }
-
-    setProductName(value:string):this{
-        this._productName = value;
-        return this
-    }
-    setSale(value:number):this{
-        this._sale = value;
-        return this
-    }
-    
 }
