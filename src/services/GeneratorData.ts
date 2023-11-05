@@ -1,21 +1,21 @@
 import { IEntity } from "../contracts/GenericModel";
 
+type TypeRelation = "0.0"|"1."|".1";
 export interface IRelation{
-    entity:IEntity,
-    typeRelation:string
+    pkEntity:IEntity,
+    fkEntity:IEntity,
+    typeRelation:TypeRelation
 }
 
-export interface IPoolEntity{
-    entity:IEntity,
-    relationships:IRelation[]
-}
 
 export class GeneratorData{
-    private _poolEntity: IPoolEntity[];
+    private _poolRelations: IRelation[];
     constructor(){
-        this._poolEntity = [];
+        this._poolRelations = [];
     }
-    set poolEntity(value:IPoolEntity[]){
-        this._poolEntity = value;
+    createRelation(pkEntity:IEntity, fkEntity:IEntity, typeRelation:TypeRelation){
+        const relation = {pkEntity,fkEntity,typeRelation};
+        this._poolRelations.push(relation);
     }
+    
 }

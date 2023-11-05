@@ -1,4 +1,4 @@
-import { GeneratorData, IPoolEntity } from "./services/GeneratorData";
+import { GeneratorData} from "./services/GeneratorData";
 import { Person } from "./models/PersonModel";
 import { Buy } from "./models/BuyModel";
 import { Product } from "./models/Product";
