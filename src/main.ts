@@ -8,52 +8,14 @@ const person = new Person();
 const buy = new Buy();
 const product = new Product();
 
+async function main(){
+    const personData = await person.generateRandomData()
+    const buyData = await buy.setSize(5).generateRandomData()
+    const productData = await product.setSize(3).generateRandomData()
 
-const pool:IPoolEntity[] = [
-    {
-        entity:person,
-        relationships:[
-            {
-                entity: buy,
-                typeRelation:"1."
-            }
-        ]
-    },
-    {
-        entity:buy,
-        relationships:[
-            {
-                entity: product,
-                typeRelation:"1."
-            }
-        ]
-    },
-    {
-        entity:buy,
-        relationships:[
-            {
-                entity: product,
-                typeRelation:"0.0"
-            }
-        ]
-    }
-]
-
-/*
-{
-    dataSet:[
-        person:{
-            name:sandro,
-            cpf:1001,
-            Buy:[
-                {
-                    date: 00-00-000,
-                    Product:[pera, uva]
-                }
-            ]
-        }
-    ]
+    console.log(personData);
 }
-*/
+
+main();
 
 //vosed39177@zamaneta.com

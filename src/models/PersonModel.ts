@@ -18,8 +18,12 @@ export class Person extends GenericModel{
     }
 
     protected async createData():Promise<void>{
-        const randomName = await this.randomName();
-        this.addColumnValue("cpf", this.randomCPF());
-        this.addColumnValue("name", randomName);
+        for(let i=0; i<this.size; i++){
+            const newRow:TupleData = {
+                "name": await this.randomName(), 
+                "cpf":this.randomCPF()
+            }
+            this.addRow(newRow);
+        }
     }
 }

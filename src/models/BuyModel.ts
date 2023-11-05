@@ -13,11 +13,12 @@ export class Buy extends GenericModel{
         return `20${year}-0${moth}-${day}`;
     }
 
-    async createData():Promise<TupleData>{
-        this.addColumnValue("date", this.randomDate());
-        return new Promise<TupleData>((resolve, reject)=>{
-            resolve(this.data);
-            reject("DataNotLoad");
-        })
+    protected async createData():Promise<void>{
+        for(let i=0; i<this.size; i++){
+            const newRow:TupleData = {
+                "date": this.randomDate()
+            }
+            this.addRow(newRow);
+        }
     }
 }

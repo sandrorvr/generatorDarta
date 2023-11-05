@@ -3,42 +3,59 @@ import { ApiResources } from "../services/ApiResources";
 
 
 export type TupleData = {[columnName:string]:string|number|null};
+export type Row = {
+    id: string,
+    data:TupleData
+}
 
 export interface IEntity{
-    id:string;
+    model: string;
     relations:IEntity|null;
-
+    size:number;
+    setSize(value:number):this;
 }
 
 export abstract class GenericModel implements IEntity{
-    private _id:string;
     private _relations: IEntity| null = null; 
-    private _data:TupleData;
-    private _isRandom:boolean;
-    protected model: string;
+    private _data:Row[];
+    private _size:number;
+    protected _model: string;
     protected resources:ApiResources;
     constructor(model: string){
-        this.model = model;
-        this._id = uuidv4();
-        this._data = {"id":uuidv4()};
-        this._isRandom = true;
+        this._model = model;
+        this._data = [];
+        this._size = 10;
         this.resources = new ApiResources();
 
     }
-    addColumnValue(columnName:string, valueNull:string|number|null):void{
-        this._data[columnName] = valueNull;
+    protected addRow(rowData:TupleData):void{
+        const newRow:Row = {
+            id: uuidv4(),
+            data: rowData,
+        };
+        this._data.push(newRow);
     }
-    get id(){
-        return this._id;
+
+    get model():string{
+        return this._model;
     }
+
     get relations():IEntity|null{
         return this._relations;
     }
     set relations(value:IEntity){
         this._relations = value;
     }
-    async generateRandomData(){
-        return this.createData().then(()=> this._data)
+    get size():number{
+        return this._size;
+    }
+    setSize(value:number):this{
+        this._size = value;
+        return this
+    }
+    async generateRandomData():Promise<Row[]>{
+        await this.createData();
+        return this._data;
     }
     protected abstract createData():Promise<void>;
 }
