@@ -20,16 +20,13 @@ export abstract class GenericModel implements IEntity{
     constructor(model: string){
         this.model = model;
         this._id = uuidv4();
-        this._data = {};
+        this._data = {"id":uuidv4()};
         this._isRandom = true;
         this.resources = new ApiResources();
 
     }
     addColumnValue(columnName:string, valueNull:string|number|null):void{
         this._data[columnName] = valueNull;
-    }
-    print(){
-        console.log(this._data)
     }
     get id(){
         return this._id;
